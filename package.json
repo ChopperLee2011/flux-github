@@ -1,0 +1,24 @@
+{
+  "name": "flux-github",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "webpack": "^1.7.3"
+  },
+  "dependencies": {
+    "babel": "^4.7.12",
+    "bootstrap": "^3.3.2",
+    "express": "^4.12.2",
+    "flux": "^2.0.1",
+    "object-assign": "^2.0.0",
+    "react": "^0.13.0",
+    "superagent": "^1.1.0"
+  }
+}
