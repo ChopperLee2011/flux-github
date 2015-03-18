@@ -1,17 +1,19 @@
 'use strict';
 const React = require('react'),
-    GithubAPI = require('../api/GithubAPI');
+    Router = require('react-router');
 let Login = React.createClass({
+    mixins: [Router.Navigation, Router.State],
     handleLogin() {
         const userName = 'chopperlee2011';
-        new GithubAPI.getUser().orgs().then(
-            function (value) {
-                console.info('Contents: ', value);
-                this.transitionTo('/' + userName);
-            }, function (reason) {
-                console.error('Something went wrong', reason);
-            }
-        );
+        this.transitionTo('/' + userName);
+
+        //new GithubAPI.getUser().orgs().then(
+        //    function (value) {
+        //        console.info('Contents: ', value);
+        //    }, function (reason) {
+        //        console.error('Something went wrong', reason);
+        //    }
+        //);
     },
     render() {
         return (

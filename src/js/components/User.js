@@ -1,30 +1,59 @@
 'use strict';
 
-//const React = require('react'),
-//    ActionCreator = require('../actions/ActionCreators');
-import React from 'react';
+const React = require('react'),
+    UserStore = require('../stores/UserStore'),
+    ActionCreator = require('../actions/ActionCreators'),
+    _ = require('lodash');
 
-export default
-class User extends React.Component {
+let User = React.createClass({
+
+    getStateFromStores() {
+        let user = UserStore.get();
+        return {
+            user
+        };
+    },
+    componentWillMount() {
+        this._onInit();
+        UserStore.addChangeListener(this._onChange);
+    },
+    componentWillReceiveProps() {
+        this.setState(this.getStateFromStores());
+    },
+
     render() {
-        return (
-            <div>
-                <p>hello</p>
-            </div>
-        );
-    }
-}
+        let {user} = this.state;
+        console.info('user', user);
+        if (_.isEmpty(user)) {
+            return (
+                <div>
+                    None!
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p>{user.me}</p>
 
-//let User = React.createClass({
-//    render() {
-//        let { user } = this.state;
-//        return (
-//            <div>
-//                <p>user.me</p>
-//                user.orgs.map(org =>
-//                <p>org</p>
-//                )
-//            </div>
-//        )
-//    }
-//})
+                    <p> Organizations </p>
+                    <ul>
+            {user.orgs.map(org =>
+                    <li key={org.id}>{org.login}</li>
+            )}
+                    </ul>
+                </div>
+            );
+        }
+    },
+
+    _onInit() {
+        ActionCreator.getUser();
+        this.setState(this.getStateFromStores());
+
+    },
+    _onChange() {
+        this.setState(this.getStateFromStores());
+    }
+});
+
+module.exports = User;

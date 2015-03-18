@@ -5,11 +5,11 @@ const AppDispatcher = require('../dispatcher/AppDispatcher'),
     GithubAPI = require('../api/GithubAPI');
 
 export default {
-    load() {
+    getUser() {
         AppDispatcher.handleViewAction({
-            actionType: ActionType.LOAD_PAGE
+            actionType: ActionType.GET_USER
         });
-        GithubAPI.getUser();
+        GithubAPI.getUserOrg();
     }
 
 }

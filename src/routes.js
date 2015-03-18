@@ -16,7 +16,7 @@ let routes = (
     <Route handler={App}>
         <Route name='login' handler={Login} />
         <Route name='about' handler={About} />
-        <Route name='user' path='/:userName' handle={User} />
+        <Route name='user' path='/:userName' handler={User} />
     </Route>
 );
 Router.run(routes, function (Handler) {

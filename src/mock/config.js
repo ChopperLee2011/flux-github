@@ -1,4 +1,4 @@
 'use strict';
 module.exports = {
-    token: '13f787d54a3f2b8057e5cce58d55628c26408d0c'
+    token: 'a7c6b505d1e27713ce4fb4c0ae06bb14dbc93a67'
 };

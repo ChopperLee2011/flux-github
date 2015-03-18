@@ -1,5 +1,5 @@
 node_modules
 dist
-src/mock/
 .idea
 npm-debug.log
+src/mock
