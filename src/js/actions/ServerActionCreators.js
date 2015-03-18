@@ -17,6 +17,20 @@ export default {
         AppDispatcher.handleServerAction({
             type: ActionTypes.GET_USER_ERROR,
         });
+    },
+    handleRepoSuccess(response) {
+        AppDispatcher.handleServerAction({
+            type: ActionTypes.GET_REPO_SUCCESS,
+            response: response
+        });
+    },
+
+    handleRepoError(err) {
+        console.log(err);
+
+        AppDispatcher.handleServerAction({
+            type: ActionTypes.GET_REPO_ERROR,
+        });
     }
 
 }

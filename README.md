@@ -4,7 +4,7 @@ Flux-Github
 ## Features ##
 - [X] login to github user token first, then passport
 - [X] list user/orgs
-- [ ] click user/orgs list repos
+- [X] click user/orgs list repos
 - [ ] click repo list issues
 - [ ] click issue popup comments
 

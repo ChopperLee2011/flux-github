@@ -13,7 +13,6 @@ UserStore.dispatcherToken = AppDispatcher.register((payload) => {
         case ActionTypes.GET_USER_SUCCESS:
             _user = action.response;
             UserStore.emitChange();
-            console.info('_user', _user);
             break;
         default:
         // do nothing

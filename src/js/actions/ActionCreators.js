@@ -10,6 +10,12 @@ export default {
             actionType: ActionType.GET_USER
         });
         GithubAPI.getUserOrg();
+    },
+    getRepo() {
+        AppDispatcher.handleViewAction({
+            actionType: ActionType.GET_REPO
+        });
+        GithubAPI.getRepo();
     }
 
 }

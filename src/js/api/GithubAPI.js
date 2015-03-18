@@ -42,7 +42,27 @@ let GitHub = {
         }).catch(err => {
             ServerActionCreators.handleUserError(err);
         });
+    },
+
+    getUserRepo() {
+        return request
+            .get(API_URL + '/user/repos')
+            .auth('authorization', OAUTH_TOKEN)
+            .set('Accept', 'application/json')
+            .end((err, res)=> {
+                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(res);
+            });
+    },
+
+    getOrgRepo(orgName) {
+        return request
+            .get(API_URL + `/orgs/${orgName}/repos`)
+            .auth('authorization', OAUTH_TOKEN)
+            .set('Accept', 'application/json')
+            .end((err, res)=> {
+                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(res);
+            });
     }
-}
+};
 
 module.exports = GitHub;

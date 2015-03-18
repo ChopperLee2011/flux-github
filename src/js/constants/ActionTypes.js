@@ -6,5 +6,9 @@ const keyMirror = require('react/lib/keyMirror');
 module.exports = keyMirror({
     GET_USER: null,
     GET_USER_SUCCESS: null,
-    GET_USER_ERROR: null
+    GET_USER_ERROR: null,
+
+    GET_REPO: null,
+    GET_REPO_SUCCESS: null,
+    GET_REPO_ERROR: null
 });

@@ -3,7 +3,8 @@
 const React = require('react'),
     UserStore = require('../stores/UserStore'),
     ActionCreator = require('../actions/ActionCreators'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    {Link} = require('react-router');
 
 let User = React.createClass({
 
@@ -23,24 +24,31 @@ let User = React.createClass({
 
     render() {
         let {user} = this.state;
-        console.info('user', user);
         if (_.isEmpty(user)) {
             return (
                 <div>
-                    None!
+                    Loading...
                 </div>
             );
         } else {
             return (
-                <div>
-                    <p>{user.me}</p>
-
-                    <p> Organizations </p>
-                    <ul>
+                <div className="user">
+                    <div className="userList">
+                        <Link to="repo" params={{userName: user.me}}>{user.me}</Link>
+                        <p> Organizations </p>
+                    </div>
+                    <div className="orgList">
+                        <ul>
             {user.orgs.map(org =>
-                    <li key={org.id}>{org.login}</li>
+
+                    <li key={org.id}>
+                        <Link to="repo" params={{userName: org.login}}>
+                        {org.login}
+                        </Link>
+                    </li>
             )}
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
             );
         }
