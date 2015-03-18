@@ -5,16 +5,19 @@ var webpack = require('webpack');
 module.exports = {
     devtool: 'source-map',
     entry: [
-        './scripts/index'
+        './src/routes.js'
     ],
     output: {
-        path: __dirname + '/dist',
+        path: __dirname,
         filename: 'bundle.js',
-        publicPath: '/'
+        publicPath: '/src'
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+        })
     ],
     resolve: {
         extensions: ['', '.js']
@@ -22,16 +25,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            {
-                test: /\.json$/,
-                loader: 'json'
-            },
-            {
-                test: /\.j(s|sx)$/,
-                loader: 'react-hot!es6-loader!jsx-loader?harmony',
-                exclude: /node_modules/
-            },
-        ],
-        noParse: /lie.js/
+            {test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/}
+        ]
     }
 };

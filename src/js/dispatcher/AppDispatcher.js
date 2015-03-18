@@ -3,9 +3,9 @@
  */
 'use strict';
 
-const Dispatcher = require('flux').Dispathcher,
+const Dispatcher = require('flux').Dispatcher,
     ActionTypes = require('../constants/ActionTypes'),
-    assign = require('object-assign');
+    assign = require('react/lib/Object.assign');
 
 let AppDispatcher = assign(new Dispatcher(), {
 
