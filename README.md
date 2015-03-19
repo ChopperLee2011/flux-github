@@ -12,6 +12,8 @@ Flux-Github
 - [ ] change auth to passport
 - [ ] empty and error handle
 
-
+## Run ##
+1. npm install
+2. npm start
 
 
