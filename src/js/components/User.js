@@ -2,28 +2,39 @@
 
 const React = require('react'),
     UserStore = require('../stores/UserStore'),
-    ActionCreator = require('../actions/ActionCreators'),
+    RepoStore = require('../stores/RepoStore'),
+    ActionCreators = require('../actions/ActionCreators'),
+    Repo = require('./Repo'),
     _ = require('lodash'),
     {Link} = require('react-router');
 
 let User = React.createClass({
 
     getStateFromStores() {
-        let user = UserStore.get();
+        let user = UserStore.get(),
+            repos = RepoStore.get();
         return {
-            user
+            user,
+            repos
         };
     },
     componentWillMount() {
         this._onInit();
         UserStore.addChangeListener(this._onChange);
-    },
-    componentWillReceiveProps() {
-        this.setState(this.getStateFromStores());
+        RepoStore.addChangeListener(this._onChange);
     },
 
+    //componentWillUnmount() {
+    //    UserStore.removeEventListener(this._onChange);
+    //    RepoStore.removeEventListener(this._onChange);
+    //},
+
+    //componentWillReceiveProps() {
+    //    this.setState(this.getStateFromStores());
+    //},
+
     render() {
-        let {user} = this.state;
+        let {user,repos} = this.state;
         if (_.isEmpty(user)) {
             return (
                 <div>
@@ -34,20 +45,23 @@ let User = React.createClass({
             return (
                 <div className="user">
                     <div className="userList">
-                        <Link to="repo" params={{userName: user.me}}>{user.me}</Link>
+                        <a onClick={this._getUserRepo} value={user.me} >{user.me}</a>
                         <p> Organizations </p>
                     </div>
                     <div className="orgList">
                         <ul>
             {user.orgs.map(org =>
-
                     <li key={org.id}>
-                        <Link to="repo" params={{userName: org.login}}>
+                        <a onClick={this._getOrgRepo} data-tag={org.login}>
                         {org.login}
-                        </Link>
+                        </a>
                     </li>
             )}
                         </ul>
+                    </div>
+                    <p> Repositories </p>
+                    <div className="repoList">
+                        <Repo repos={repos}/>
                     </div>
                 </div>
             );
@@ -55,12 +69,22 @@ let User = React.createClass({
     },
 
     _onInit() {
-        ActionCreator.getUser();
+        ActionCreators.getUser();
         this.setState(this.getStateFromStores());
 
     },
     _onChange() {
         this.setState(this.getStateFromStores());
+    },
+    _getUserRepo() {
+        event.preventDefault();
+        ActionCreators.getRepo('user', this.state.user.me);
+    },
+    _getOrgRepo(event) {
+        event.preventDefault();
+        //console.info('event.target.dataset.tag',event.target.dataset.tag);
+
+        ActionCreators.getRepo('org', event.target.dataset.tag);
     }
 });
 

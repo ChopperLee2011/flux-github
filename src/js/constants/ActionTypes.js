@@ -10,5 +10,9 @@ module.exports = keyMirror({
 
     GET_REPO: null,
     GET_REPO_SUCCESS: null,
-    GET_REPO_ERROR: null
+    GET_REPO_ERROR: null,
+
+    GET_ISSUE: null,
+    GET_ISSUE_SUCCESS: null,
+    GET_ISSUE_ERROR: null
 });

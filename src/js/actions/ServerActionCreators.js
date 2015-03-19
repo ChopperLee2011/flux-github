@@ -7,7 +7,7 @@ export default {
     handleUserSuccess(response) {
         AppDispatcher.handleServerAction({
             type: ActionTypes.GET_USER_SUCCESS,
-            response: response
+            response
         });
     },
 
@@ -15,13 +15,14 @@ export default {
         console.log(err);
 
         AppDispatcher.handleServerAction({
-            type: ActionTypes.GET_USER_ERROR,
+            type: ActionTypes.GET_USER_ERROR
         });
     },
-    handleRepoSuccess(response) {
+    handleRepoSuccess(userName, response) {
         AppDispatcher.handleServerAction({
             type: ActionTypes.GET_REPO_SUCCESS,
-            response: response
+            userName,
+            response
         });
     },
 
@@ -29,7 +30,21 @@ export default {
         console.log(err);
 
         AppDispatcher.handleServerAction({
-            type: ActionTypes.GET_REPO_ERROR,
+            type: ActionTypes.GET_REPO_ERROR
+        });
+    },
+    handleIssueSuccess(response) {
+        AppDispatcher.handleServerAction({
+            type: ActionTypes.GET_ISSUE_SUCCESS,
+            response
+        });
+    },
+
+    handleIssueError(err) {
+        console.log(err);
+
+        AppDispatcher.handleServerAction({
+            type: ActionTypes.GET_ISSUE_ERROR
         });
     }
 

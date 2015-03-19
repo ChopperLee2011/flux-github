@@ -5,7 +5,13 @@ Flux-Github
 - [X] login to github user token first, then passport
 - [X] list user/orgs
 - [X] click user/orgs list repos
-- [ ] click repo list issues
+- [X] click repo list issues
+
+## To-Do ##
 - [ ] click issue popup comments
+- [ ] change auth to passport
+- [ ] empty and error handle
+
+
 
 

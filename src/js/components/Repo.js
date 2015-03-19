@@ -1,28 +1,24 @@
 'use strict';
 
 const React = require('react'),
-    RepoStore = require('../stores/RepoStore'),
-    ActionCreator = require('../actions/ActionCreators'),
-    _ = require('lodash');
+    ActionCreators = require('../actions/ActionCreators'),
+    Issue = require('./Issue'),
+    IssueStore = require('../stores/IssueStore');
 
 let Repo = React.createClass({
-
     getStateFromStores() {
-        let repos = RepoStore.get();
+        let issues = IssueStore.get();
         return {
-            repos
+            issues
         };
     },
     componentWillMount() {
-        this._onInit();
-        RepoStore.addChangeListener(this._onChange);
-    },
-    componentWillReceiveProps() {
         this.setState(this.getStateFromStores());
+        IssueStore.addChangeListener(this._onChange);
     },
-
     render() {
-        let {repos} = this.state;
+        let {repos} = this.props,
+            {issues} = this.state;
         if (_.isEmpty(repos)) {
             return (
                 <div>
@@ -34,18 +30,23 @@ let Repo = React.createClass({
                 <div>
                     <ul>
             {repos.map(repo =>
-                    <li key={repo.id}>{repo.name}</li>
+                    <li key={repo.id}>
+                        <a onClick={this._getIssue} data-tag={repo.url}>{repo.name}
+                        </a>
+                    </li>
             )}
                     </ul>
+                    <p> Issues </p>
+                    <div className="issuesList">
+                        <Issue issues={issues}/>
+                    </div>
                 </div>
             );
         }
     },
-
-    _onInit() {
-        ActionCreator.getUserRepo();
-        this.setState(this.getStateFromStores());
-
+    _getIssue(event) {
+        event.preventDefault();
+        ActionCreators.getIssue(event.target.dataset.tag);
     },
     _onChange() {
         this.setState(this.getStateFromStores());

@@ -6,14 +6,6 @@ let Login = React.createClass({
     handleLogin() {
         const userName = 'chopperlee2011';
         this.transitionTo('/' + userName);
-
-        //new GithubAPI.getUser().orgs().then(
-        //    function (value) {
-        //        console.info('Contents: ', value);
-        //    }, function (reason) {
-        //        console.error('Something went wrong', reason);
-        //    }
-        //);
     },
     render() {
         return (

@@ -44,13 +44,13 @@ let GitHub = {
         });
     },
 
-    getUserRepo() {
+    getUserRepo(userName) {
         return request
             .get(API_URL + '/user/repos')
             .auth('authorization', OAUTH_TOKEN)
             .set('Accept', 'application/json')
             .end((err, res)=> {
-                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(res);
+                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(userName, res);
             });
     },
 
@@ -60,7 +60,16 @@ let GitHub = {
             .auth('authorization', OAUTH_TOKEN)
             .set('Accept', 'application/json')
             .end((err, res)=> {
-                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(res);
+                err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(orgName, res);
+            });
+    },
+    getIssue(repoUrl) {
+        return request
+            .get(`${repoUrl}/issues`)
+            .auth('authorization', OAUTH_TOKEN)
+            .set('Accept', 'application/json')
+            .end((err, res)=> {
+                err ? ServerActionCreators.handleIssueError(err) : ServerActionCreators.handleIssueSuccess(res);
             });
     }
 };
