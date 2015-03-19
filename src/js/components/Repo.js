@@ -36,8 +36,8 @@ let Repo = React.createClass({
                     </li>
             )}
                     </ul>
-                    <p> Issues </p>
-                    <div className="issuesList">
+                    <div className="issueList">
+                        <p> Issues </p>
                         <Issue issues={issues}/>
                     </div>
                 </div>

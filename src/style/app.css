@@ -46,3 +46,24 @@ a.active {
     padding: 40px;
 }
 
+.repoList {
+    position: absolute;
+    left: 300px;
+    top: 0;
+    bottom: 100px;
+    right: 0;
+    border-left: 1px solid #ccc;
+    overflow: auto;
+    padding: 40px;
+}
+
+.issueList {
+    position: absolute;
+    left: 700px;
+    top: 0;
+    bottom: 100px;
+    right: 0;
+    border-left: 1px solid #ccc;
+    overflow: auto;
+    padding: 40px;
+}

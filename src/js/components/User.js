@@ -59,8 +59,8 @@ let User = React.createClass({
             )}
                         </ul>
                     </div>
-                    <p> Repositories </p>
                     <div className="repoList">
+                        <p>Repositories</p>
                         <Repo repos={repos}/>
                     </div>
                 </div>

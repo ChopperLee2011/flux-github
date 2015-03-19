@@ -12,9 +12,6 @@ export default
                         <li>
                             <Link to='login'>Sign in </Link>
                         </li>
-                        <li>
-                            <Link to='about'>About </Link>
-                        </li>
                     </ul>
                     <hr />
                     <RouteHandler/>
