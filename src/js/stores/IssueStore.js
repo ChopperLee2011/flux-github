@@ -13,7 +13,6 @@ IssueStore.dispatcherToken = AppDispatcher.register((payload) => {
         case ActionTypes.GET_ISSUE_SUCCESS:
             _issues = action.response.body;
             IssueStore.emitChange();
-            console.info('_issues', _issues);
             break;
         default:
         // do nothing

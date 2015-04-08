@@ -1,4 +1,3 @@
-'use strict';
 const React = require('react'),
     Router = require('react-router');
 let Login = React.createClass({

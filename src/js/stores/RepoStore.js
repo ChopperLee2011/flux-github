@@ -13,7 +13,6 @@ RepoStore.dispatcherToken = AppDispatcher.register((payload) => {
         case ActionTypes.GET_REPO_SUCCESS:
             _repos = action.response.body;
             RepoStore.emitChange();
-            //console.info('_repos', _repos);
             break;
         default:
         // do nothing

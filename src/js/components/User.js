@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react'),
     UserStore = require('../stores/UserStore'),
     RepoStore = require('../stores/RepoStore'),
@@ -8,7 +6,7 @@ const React = require('react'),
     _ = require('lodash'),
     {Link} = require('react-router');
 
-let User = React.createClass({
+class User extends React.Component {
 
     getStateFromStores() {
         let user = UserStore.get(),
@@ -17,12 +15,14 @@ let User = React.createClass({
             user,
             repos
         };
-    },
+    }
+
     componentWillMount() {
         this._onInit();
         UserStore.addChangeListener(this._onChange);
         RepoStore.addChangeListener(this._onChange);
-    },
+    }
+
 
     //componentWillUnmount() {
     //    UserStore.removeEventListener(this._onChange);
@@ -45,18 +45,19 @@ let User = React.createClass({
             return (
                 <div className="user">
                     <div className="userList">
-                        <a onClick={this._getUserRepo} value={user.me} >{user.me}</a>
+                        <a onClick={this._getUserRepo} value={user.me}>{user.me}</a>
+
                         <p> Organizations </p>
                     </div>
                     <div className="orgList">
                         <ul>
-            {user.orgs.map(org =>
-                    <li key={org.id}>
-                        <a onClick={this._getOrgRepo} data-tag={org.login}>
-                        {org.login}
-                        </a>
-                    </li>
-            )}
+                            {user.orgs.map(org =>
+                                    <li key={org.id}>
+                                        <a onClick={this._getOrgRepo} data-tag={org.login}>
+                                            {org.login}
+                                        </a>
+                                    </li>
+                            )}
                         </ul>
                     </div>
                     <div className="repoList">
@@ -66,26 +67,32 @@ let User = React.createClass({
                 </div>
             );
         }
-    },
+    }
+
 
     _onInit() {
         ActionCreators.getUser();
         this.setState(this.getStateFromStores());
 
-    },
+    }
+
+
     _onChange() {
         this.setState(this.getStateFromStores());
-    },
+    }
+
+
     _getUserRepo() {
         event.preventDefault();
         ActionCreators.getRepo('user', this.state.user.me);
-    },
+    }
+
     _getOrgRepo(event) {
         event.preventDefault();
         //console.info('event.target.dataset.tag',event.target.dataset.tag);
 
         ActionCreators.getRepo('org', event.target.dataset.tag);
     }
-});
+}
 
 module.exports = User;

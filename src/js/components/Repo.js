@@ -1,21 +1,19 @@
-'use strict';
-
 const React = require('react'),
     ActionCreators = require('../actions/ActionCreators'),
     Issue = require('./Issue'),
     IssueStore = require('../stores/IssueStore');
 
-let Repo = React.createClass({
+class Repo extends React.Component {
     getStateFromStores() {
         let issues = IssueStore.get();
         return {
             issues
         };
-    },
+    }
     componentWillMount() {
         this.setState(this.getStateFromStores());
         IssueStore.addChangeListener(this._onChange);
-    },
+    }
     render() {
         let {repos} = this.props,
             {issues} = this.state;
@@ -29,12 +27,12 @@ let Repo = React.createClass({
             return (
                 <div>
                     <ul>
-            {repos.map(repo =>
-                    <li key={repo.id}>
-                        <a onClick={this._getIssue} data-tag={repo.url}>{repo.name}
-                        </a>
-                    </li>
-            )}
+                        {repos.map(repo =>
+                                <li key={repo.id}>
+                                    <a onClick={this._getIssue} data-tag={repo.url}>{repo.name}
+                                    </a>
+                                </li>
+                        )}
                     </ul>
                     <div className="issueList">
                         <p> Issues </p>
@@ -43,14 +41,15 @@ let Repo = React.createClass({
                 </div>
             );
         }
-    },
+    }
     _getIssue(event) {
         event.preventDefault();
         ActionCreators.getIssue(event.target.dataset.tag);
-    },
+    }
+
     _onChange() {
         this.setState(this.getStateFromStores());
     }
-});
+}
 
 module.exports = Repo;

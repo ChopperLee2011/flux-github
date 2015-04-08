@@ -1,8 +1,5 @@
-'use strict';
-
 const React = require('react');
-
-let Issue = React.createClass({
+class Issue extends React.Component {
     render() {
         let {issues} = this.props;
         if (_.isEmpty(issues)) {
@@ -15,14 +12,14 @@ let Issue = React.createClass({
             return (
                 <div>
                     <ul>
-            {issues.map(issue =>
-                    <li key={issue.id}>{issue.title}</li>
-            )}
+                        {issues.map(issue =>
+                                <li key={issue.id}>{issue.title}</li>
+                        )}
                     </ul>
                 </div>
             );
         }
     }
-});
+}
 
 module.exports = Issue;
