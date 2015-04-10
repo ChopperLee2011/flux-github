@@ -1,6 +1,6 @@
 Flux-Github
 ===========
- Use Flux to make a app for github use repos and issues;
+ Use React/Flux to make an app for getting github user, repo and issue information;
 ## Features ##
 - [X] login to github user token
 - [X] list user/orgs
