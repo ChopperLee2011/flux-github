@@ -1,9 +1,9 @@
 const React = require('react'),
-    Router = require('react-router');
-let Login = React.createClass({
+    Router = require('react-router'),
+    userName = require('../../../config').USER_NAME;
+var Login = React.createClass({
     mixins: [Router.Navigation, Router.State],
     handleLogin() {
-        const userName = 'chopperlee2011';
         this.transitionTo('/' + userName);
     },
     render() {

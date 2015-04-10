@@ -3,10 +3,8 @@ const React = require('react'),
     RepoStore = require('../stores/RepoStore'),
     ActionCreators = require('../actions/ActionCreators'),
     Repo = require('./Repo'),
-    _ = require('lodash'),
-    {Link} = require('react-router');
-
-class User extends React.Component {
+    _ = require('lodash');
+var User = React.createClass({
 
     getStateFromStores() {
         let user = UserStore.get(),
@@ -15,23 +13,13 @@ class User extends React.Component {
             user,
             repos
         };
-    }
+    },
 
     componentWillMount() {
         this._onInit();
         UserStore.addChangeListener(this._onChange);
         RepoStore.addChangeListener(this._onChange);
-    }
-
-
-    //componentWillUnmount() {
-    //    UserStore.removeEventListener(this._onChange);
-    //    RepoStore.removeEventListener(this._onChange);
-    //},
-
-    //componentWillReceiveProps() {
-    //    this.setState(this.getStateFromStores());
-    //},
+    },
 
     render() {
         let {user,repos} = this.state;
@@ -41,7 +29,8 @@ class User extends React.Component {
                     Loading...
                 </div>
             );
-        } else {
+        } else{
+            console.info('user',user);
             return (
                 <div className="user">
                     <div className="userList">
@@ -67,32 +56,30 @@ class User extends React.Component {
                 </div>
             );
         }
-    }
+    },
 
 
     _onInit() {
         ActionCreators.getUser();
         this.setState(this.getStateFromStores());
 
-    }
+    },
 
 
     _onChange() {
         this.setState(this.getStateFromStores());
-    }
+    },
 
 
     _getUserRepo() {
         event.preventDefault();
         ActionCreators.getRepo('user', this.state.user.me);
-    }
+    },
 
     _getOrgRepo(event) {
         event.preventDefault();
-        //console.info('event.target.dataset.tag',event.target.dataset.tag);
-
         ActionCreators.getRepo('org', event.target.dataset.tag);
     }
-}
+});
 
 module.exports = User;

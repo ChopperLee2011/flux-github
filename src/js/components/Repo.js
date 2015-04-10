@@ -3,17 +3,17 @@ const React = require('react'),
     Issue = require('./Issue'),
     IssueStore = require('../stores/IssueStore');
 
-class Repo extends React.Component {
+ var Repo = React.createClass({
     getStateFromStores() {
         let issues = IssueStore.get();
         return {
             issues
         };
-    }
+    },
     componentWillMount() {
         this.setState(this.getStateFromStores());
         IssueStore.addChangeListener(this._onChange);
-    }
+    },
     render() {
         let {repos} = this.props,
             {issues} = this.state;
@@ -41,15 +41,15 @@ class Repo extends React.Component {
                 </div>
             );
         }
-    }
+    },
     _getIssue(event) {
         event.preventDefault();
         ActionCreators.getIssue(event.target.dataset.tag);
-    }
+    },
 
     _onChange() {
         this.setState(this.getStateFromStores());
     }
-}
+});
 
 module.exports = Repo;

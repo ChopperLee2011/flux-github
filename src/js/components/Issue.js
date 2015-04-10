@@ -1,5 +1,5 @@
 const React = require('react');
-class Issue extends React.Component {
+var Issue = React.createClass({
     render() {
         let {issues} = this.props;
         if (_.isEmpty(issues)) {
@@ -20,6 +20,6 @@ class Issue extends React.Component {
             );
         }
     }
-}
+});
 
 module.exports = Issue;

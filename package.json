@@ -1,14 +1,14 @@
 {
   "name": "flux-github",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a demo for how to get github data by Flux way",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --content-base src/ --port 3000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Chopper",
+  "license": "MIT",
   "devDependencies": {
     "babel-core": "^5.0.10",
     "babel-loader": "^5.0.0",
