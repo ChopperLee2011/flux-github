@@ -59,11 +59,21 @@ a.active {
 
 .issueList {
     position: absolute;
-    left: 700px;
+    left: 500px;
     top: 0;
     bottom: 100px;
     right: 0;
     border-left: 1px solid #ccc;
     overflow: auto;
+    padding: 40px;
+}
+
+.repoManager {
+    position: absolute;
+    left: 500px;
+    top: 400px;
+    bottom: 100px;
+    right: 0;
+    border-left: 1px solid #ccc;
     padding: 40px;
 }

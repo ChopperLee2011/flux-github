@@ -1,19 +1,20 @@
 const React = require('react'),
     ActionCreators = require('../actions/ActionCreators'),
     Issue = require('./Issue'),
+    Mgr = require('./RepoMgr'),
     IssueStore = require('../stores/IssueStore');
 
- var Repo = React.createClass({
+class Repo extends React.Component {
     getStateFromStores() {
         let issues = IssueStore.get();
         return {
             issues
         };
-    },
+    }
     componentWillMount() {
         this.setState(this.getStateFromStores());
-        IssueStore.addChangeListener(this._onChange);
-    },
+        IssueStore.addChangeListener(this._onChange.bind(this));
+    }
     render() {
         let {repos} = this.props,
             {issues} = this.state;
@@ -38,18 +39,22 @@ const React = require('react'),
                         <p> Issues </p>
                         <Issue issues={issues}/>
                     </div>
+                    <div className="repoManager">
+                        <p> Repo Manager </p>
+                        <Mgr />
+                     </div>
                 </div>
             );
         }
-    },
+    }
     _getIssue(event) {
         event.preventDefault();
         ActionCreators.getIssue(event.target.dataset.tag);
-    },
+    }
 
     _onChange() {
         this.setState(this.getStateFromStores());
     }
-});
+}
 
 module.exports = Repo;

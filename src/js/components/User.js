@@ -3,8 +3,10 @@ const React = require('react'),
     RepoStore = require('../stores/RepoStore'),
     ActionCreators = require('../actions/ActionCreators'),
     Repo = require('./Repo'),
-    _ = require('lodash');
-var User = React.createClass({
+    _ = require('lodash'),
+    {Link} = require('react-router');
+
+class User extends React.Component {
 
     getStateFromStores() {
         let user = UserStore.get(),
@@ -13,13 +15,23 @@ var User = React.createClass({
             user,
             repos
         };
-    },
+    }
 
     componentWillMount() {
         this._onInit();
-        UserStore.addChangeListener(this._onChange);
-        RepoStore.addChangeListener(this._onChange);
-    },
+        UserStore.addChangeListener(this._onChange.bind(this));
+        RepoStore.addChangeListener(this._onChange.bind(this));
+    }
+
+
+    //componentWillUnmount() {
+    //    UserStore.removeEventListener(this._onChange);
+    //    RepoStore.removeEventListener(this._onChange);
+    //},
+
+    //componentWillReceiveProps() {
+    //    this.setState(this.getStateFromStores());
+    //},
 
     render() {
         let {user,repos} = this.state;
@@ -29,12 +41,11 @@ var User = React.createClass({
                     Loading...
                 </div>
             );
-        } else{
-            console.info('user',user);
+        } else {
             return (
                 <div className="user">
                     <div className="userList">
-                        <a onClick={this._getUserRepo} value={user.me}>{user.me}</a>
+                        <a onClick={this._getUserRepo.bind(this)} value={user.me}>{user.me}</a>
 
                         <p> Organizations </p>
                     </div>
@@ -56,30 +67,30 @@ var User = React.createClass({
                 </div>
             );
         }
-    },
+    }
 
 
     _onInit() {
         ActionCreators.getUser();
         this.setState(this.getStateFromStores());
 
-    },
+    }
 
 
     _onChange() {
         this.setState(this.getStateFromStores());
-    },
+    }
 
 
     _getUserRepo() {
         event.preventDefault();
         ActionCreators.getRepo('user', this.state.user.me);
-    },
+    }
 
     _getOrgRepo(event) {
         event.preventDefault();
         ActionCreators.getRepo('org', event.target.dataset.tag);
     }
-});
+}
 
 module.exports = User;
