@@ -44,7 +44,8 @@ let GitHub = {
     getUserRepo(userName) {
         return request
             .get(API_URL + '/user/repos')
-            .auth('authorization', OAUTH_TOKEN)
+          .query({per_page: 200})
+          .auth('authorization', OAUTH_TOKEN)
             .set('Accept', 'application/json')
             .end((err, res)=> {
                 err ? ServerActionCreators.handleRepoError(err) : ServerActionCreators.handleRepoSuccess(userName, res);
@@ -63,6 +64,7 @@ let GitHub = {
     getIssue(repoUrl) {
         return request
             .get(`${repoUrl}/issues`)
+            .query({state: 'all', per_page: 200})
             .auth('authorization', OAUTH_TOKEN)
             .set('Accept', 'application/json')
             .end((err, res)=> {

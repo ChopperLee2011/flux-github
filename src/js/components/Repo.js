@@ -1,14 +1,16 @@
 const React = require('react'),
     ActionCreators = require('../actions/ActionCreators'),
-    Issue = require('./Issue'),
-    Mgr = require('./RepoMgr'),
+    Report = require('./DailyIssueReport'),
     IssueStore = require('../stores/IssueStore');
 
 class Repo extends React.Component {
     getStateFromStores() {
-        let issues = IssueStore.get();
+        let reports = {
+            closed: IssueStore.getByStatus('closed'),
+            wip: IssueStore.getByStatus('wip')
+        }
         return {
-            issues
+          reports
         };
     }
     componentWillMount() {
@@ -17,7 +19,8 @@ class Repo extends React.Component {
     }
     render() {
         let {repos} = this.props,
-            {issues} = this.state;
+            {reports} = this.state;
+        console.log('reports',reports)
         if (_.isEmpty(repos)) {
             return (
                 <div>
@@ -36,13 +39,9 @@ class Repo extends React.Component {
                         )}
                     </ul>
                     <div className="issueList">
-                        <p> Issues </p>
-                        <Issue issues={issues}/>
+                        <p> Daily Issue Report </p>
+                        <Report reports={reports}/>
                     </div>
-                    <div className="repoManager">
-                        <p> Repo Manager </p>
-                        <Mgr />
-                     </div>
                 </div>
             );
         }
