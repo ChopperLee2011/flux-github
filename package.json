@@ -4,7 +4,7 @@
   "description": "a demo for how to get github data by Flux way",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --content-base src/ --port 3000",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Chopper",
@@ -17,6 +17,9 @@
     "webpack-dev-server": "^1.8.0"
   },
   "dependencies": {
+    "EventEmitter": "^1.0.0",
+    "axios": "^0.16.1",
+    "express": "^4.15.2",
     "flux": "^2.0.1",
     "lodash": "^4.17.4",
     "react": "^0.13.1",

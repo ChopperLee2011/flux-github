@@ -5,6 +5,12 @@ const AppDispatcher = require('../dispatcher/AppDispatcher'),
     GithubAPI = require('../api/GithubAPI');
 
 export default {
+    login(credential){
+      AppDispatcher.handleViewAction({
+        actionType: ActionType.USER_AUTH
+      });
+      GithubAPI.login(credential);
+    },
     getUser() {
         AppDispatcher.handleViewAction({
             actionType: ActionType.GET_USER
