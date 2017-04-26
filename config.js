@@ -1,8 +1,8 @@
 var config = {
   "USER_NAME": '',
   "OAUTH_TOKEN": '',
-  'clientId': '59de5143a39738a35012',
-  'clientSecret': 'c51887ccbc254ad0be49ab58468f54aefad3589a'
+  'clientId': '232dde65e4a4cdf35d77',
+  'clientSecret': '6ff956919c9af5d04f182c2cd04dfb8b699bb150'
 };
 
 module.exports = config;

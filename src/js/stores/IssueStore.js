@@ -16,14 +16,14 @@ let IssueStore = createStore({
   get() {
     return _issues;
   },
-  getByStatus(status){
-    console.log('getByStatus status: %s', status)
+  getByStatus(status, username){
+    console.log('getByStatus status: %s \t username: %s', status, username)
     if (Object.keys(_issues).length == 0) {
       return {}
     }
     const d = new Date()
     const yesterday = d.setDate(d.getDate() - 1)
-    let filteredIssue = filterByDate(filterByAssignee(_issues, config.USER_NAME), yesterday)
+    let filteredIssue = filterByDate(filterByAssignee(_issues, username), yesterday)
     if (Object.keys(filteredIssue).length === 0) {
       return {}
     }

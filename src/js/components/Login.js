@@ -1,16 +1,18 @@
 const React = require('react'),
   Router = require('react-router'),
   ActionCreators = require('../actions/ActionCreators'),
+  AuthStore = require('../stores/AuthStore'),
   querystring = require('querystring'),
   {EventEmitter} = require('events'),
+  Config = require('../../../config'),
   axios = require('axios');
 
 var Login = React.createClass({
+  mixins: [Router.Navigation, Router.State],
   handleLogin() {
     let access_token
-    let client_id = '59de5143a39738a35012'
-    let client_secret = 'c51887ccbc254ad0be49ab58468f54aefad3589a'
-    let popWin = window.open(`https://github.com/login/oauth/authorize?client_id=${client_id}`,
+    let client_id = Config.clientId
+    let popWin = window.open(`https://github.com/login/oauth/authorize?client_id=${client_id}&scope=repo_deployment%20read:org%20public_repo%20user`,
       null, "width=600,height=400")
     let code
     let eventEmitter = new EventEmitter();
@@ -33,21 +35,22 @@ var Login = React.createClass({
 
     eventEmitter.on('code', (code) => {
       console.log('get code:' + code)
-      axios.post('https://github.com/login/oauth/access_token',
-        {code: code, client_id: client_id, client_secret: client_secret})
+      axios.get(`/githubToken?code=${code}`)
         .then((res) => {
-          console.log('get access_token:')
           access_token = res.data.access_token
+          console.log('access_token', access_token)
           this.setState({access_token: res.data.access_token});
           return access_token
         })
         .then((res) => {
+          AuthStore.set(res)
           axios.get(`https://api.github.com/user?access_token=${res}`)
             .then((res) => {
-              let {name, avatar_url, email} = res.data
+              let {name, avatar_url, email, login} = res.data
               this.setState({
-                name: name, avatar_url: avatar_url, email: email
+                name: name, avatar_url: avatar_url, email: email,
               })
+              this.transitionTo('/' + login);
             })
         });
     })

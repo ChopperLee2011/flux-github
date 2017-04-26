@@ -6,8 +6,8 @@ const React = require('react'),
 class Repo extends React.Component {
     getStateFromStores() {
         let reports = {
-            closed: IssueStore.getByStatus('closed'),
-            wip: IssueStore.getByStatus('wip')
+            closed: IssueStore.getByStatus('closed', this.props.username),
+            wip: IssueStore.getByStatus('wip', this.props.username)
         }
         return {
           reports
@@ -24,7 +24,7 @@ class Repo extends React.Component {
         if (_.isEmpty(repos)) {
             return (
                 <div>
-                    Loading...
+                    Please pick a user or org first.
                 </div>
             );
         } else {

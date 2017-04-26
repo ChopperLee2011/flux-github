@@ -15,13 +15,13 @@ var Issue = React.createClass({
           * closed
           <ul>
             { !_.isEmpty(reports.closed) && reports.closed.map(issue =>
-              <li key={issue.id}>{issue.title}/{issue.html_url}</li>
+              <li key={issue.id}><a href={issue.html_url}>{issue.title}</a></li>
             )}
           </ul>
           * wip
           <ul>
             { !_.isEmpty(reports.wip) && reports.wip.map(issue =>
-              <li key={issue.id}>{issue.title}/{issue.html_url}</li>
+              <li key={issue.id}><a href={issue.html_url}>{issue.title}</a></li>
             )}
           </ul>
         </div>

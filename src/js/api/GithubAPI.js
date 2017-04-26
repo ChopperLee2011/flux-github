@@ -2,25 +2,13 @@
 
 const request = require('superagent'),
   API_URL = 'https://api.github.com',
-  OAUTH_TOKEN = require('../../../config').OAUTH_TOKEN,
-  Config = require('../../../config'),
+  // OAUTH_TOKEN = require('../../../config').OAUTH_TOKEN,
+  // Config = require('../../../config'),
+  AuthStore = require('../stores/AuthStore'),
   ServerActionCreators = require('../actions/ServerActionCreators');
 let GitHub = {
-  login(code){
-    return request
-      .post('https://github.com/login/oauth/access_token')
-      .withCredentials()
-      .send({
-        client_id: Config.clientId,
-        client_secret: Config.clientSecret,
-        code: code
-      })
-      .end((err, res) => {
-        console.log('access_token res', res)
-        err ? ServerActionCreators.handleAuthError(err) : ServerActionCreators.handleAuthSuccess(res);
-      });
-  },
   getMe(){
+    const OAUTH_TOKEN = AuthStore.get();
     return new Promise((resolve, reject) => {
       request
         .get(API_URL + '/user')
@@ -32,6 +20,8 @@ let GitHub = {
     });
   },
   getOrgs() {
+    const OAUTH_TOKEN = AuthStore.get();
+
     return new Promise((resolve, reject) => {
       request
         .get(API_URL + '/user/orgs')
@@ -57,6 +47,7 @@ let GitHub = {
   },
 
   getUserRepo(userName) {
+    const OAUTH_TOKEN = AuthStore.get();
     return request
       .get(API_URL + '/user/repos')
       .query({per_page: 200})
@@ -68,6 +59,7 @@ let GitHub = {
   },
 
   getOrgRepo(orgName) {
+    const OAUTH_TOKEN = AuthStore.get();
     return request
       .get(API_URL + `/orgs/${orgName}/repos`)
       .auth('authorization', OAUTH_TOKEN)
@@ -77,6 +69,7 @@ let GitHub = {
       });
   },
   getIssue(repoUrl) {
+    const OAUTH_TOKEN = AuthStore.get();
     return request
       .get(`${repoUrl}/issues`)
       .query({state: 'all', per_page: 200})

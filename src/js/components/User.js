@@ -1,6 +1,7 @@
 const React = require('react'),
     UserStore = require('../stores/UserStore'),
     RepoStore = require('../stores/RepoStore'),
+    AuthStore = require('../stores/AuthStore'),
     ActionCreators = require('../actions/ActionCreators'),
     Repo = require('./Repo'),
     _ = require('lodash'),
@@ -10,10 +11,12 @@ class User extends React.Component {
 
     getStateFromStores() {
         let user = UserStore.get(),
-            repos = RepoStore.get();
+            repos = RepoStore.get(),
+            token = AuthStore.get();
         return {
             user,
-            repos
+            repos,
+            token
         };
     }
 
@@ -34,7 +37,8 @@ class User extends React.Component {
     //},
 
     render() {
-        let {user,repos} = this.state;
+        let {user,repos, token } = this.state;
+        console.log('User page token',token)
         if (_.isEmpty(user)) {
             return (
                 <div>
@@ -62,7 +66,7 @@ class User extends React.Component {
                     </div>
                     <div className="repoList">
                         <p>Repositories</p>
-                        <Repo repos={repos}/>
+                        <Repo repos={repos} username={user.me}/>
                     </div>
                 </div>
             );
